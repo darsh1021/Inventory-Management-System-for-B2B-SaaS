@@ -19,7 +19,6 @@ const ProductSchema = mongoose.Schema({
     price:
     {
         type:String,
-        required:true
     }
 
 });
