@@ -8,8 +8,10 @@
 </li>No validation or error handling ,Missing fields or wrong data can crash the API or corrupt the database.</li>
 </ul>
 <p>
-
+</br>
 <h1>Part 2: Database Design</h1>
+<b>Database Schema </b>
+<br></br>
 <code> 
 --1. Companies
 CREATE TABLE companies (
@@ -75,3 +77,27 @@ CREATE TABLE inventory_history (
     changed_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 </code>
+<br>
+<b>To identify gaps questions for Product Team</b>
+<ol>
+  <li>Do we need to track who created/updated products or warehouses?</li>
+  <li>Do warehouses have capacity limits we need to track?</li>
+  <li>When selling a bundle, should inventory of individual products automatically decrease?</li>
+  <li>who will do what? RBA-Role based access</li>
+</ol>
+<br>
+<b> Decision Choices </b>
+<ul>
+  <li>Timestamps with CURRENT_TIMESTAMP — automatically record when each record was created or updated.</li>
+  <li>product_bundle_items table — allows defining bundles that contain multiple products or items.</li>
+  <li>inventory_history table — maintains a log of every stock change for audit and reporting purposes.</li>
+  <li>inventory table has a unique combination of (product_id, warehouse_id) — prevents duplicate entries for the same product in the same warehouse.</li>
+  <li>Price stored as DECIMAL(10,2) — avoids rounding errors and preserves financial accuracy.</li>
+  <li>CHECK constraints on quantity and price — ensures only valid, non-negative values are stored.</li>
+  <li>Primary keys use SERIAL — ensures each record has a unique, auto-incremented ID for easy referencing.</li>
+</ul>
+<br>
+<h1>Part 3: API Implementation</h1>
+The code is provided in part3
+all assumed 
+</br>
