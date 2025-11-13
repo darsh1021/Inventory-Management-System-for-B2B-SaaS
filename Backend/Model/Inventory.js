@@ -14,7 +14,6 @@ const InventorySchema = mongoose.Schema({
     quantity:
     {
         type:String,
-        required:true
     }
 
 });
